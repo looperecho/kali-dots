@@ -54,14 +54,15 @@ curl https://pyenv.run | bash
 # Copy config dirs
 # Set dir 
 CURRENT="$(cd "$(dirname "${BASH_SOURCE[0]}")/kali-dots" && pwd)"
+
 # Link configs
 echo "Linking config dirs..."
-for dir in $CURRENT/.config/{Thunar,alacritty,i3,nvim,polybar,rofi,yazi,zsh}; do
+for dir in Thunar alacritty i3 nvim polybar rofi yazi zsh; do
     # Create symlinks
-    ln -sf "$dir" "$HOME/.config/$(basename "$dir")"
+    ln -sf "$CURRENT/.config/$dir" "$HOME/.config/$dir"
 
     # Check
-    if [[ -L "$HOME/.config/$(basename "$dir")" && -e "$HOME/.config/$(basename "$dir")" ]]; then
+    if [[ -L "$HOME/.config/$dir" && -e "$HOME/.config/$dir" ]]; then
         echo "✓ $dir"
     else
         echo "Problem creating symlink for $dir"
@@ -69,11 +70,12 @@ for dir in $CURRENT/.config/{Thunar,alacritty,i3,nvim,polybar,rofi,yazi,zsh}; do
 done
 
 # Link resources
-for dir in $CURRENT/.local/share/{fonts,wallpaper}; do
-    cp -r "$dir" "$HOME/.local/share/"
-    # Check exit status of copy
-    if [[ $? -eq 0 && -d "$HOME/.local/share/$(basename "$dir")" ]]; then
-        echo "Done $dir"
+echo "Linking fonts and wallpaper..."
+for dir in fonts wallpaper; do
+    ln -sf "$CURRENT/.local/share/$dir" "$HOME/.local/share/$dir"
+    # Check
+    if [[ -L "$HOME/.local/share/$dir" && -e "$HOME/.local/share/$dir" ]]; then
+        echo "✓ $dir"
     else
         echo "Problem creating symlink for $dir"
     fi
