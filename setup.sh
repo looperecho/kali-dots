@@ -26,7 +26,7 @@ sudo apt install -y \
     alacritty \
     neovim \
     fzf \
-    zioxide
+    zoxide
 
 # Setup pyenv
 echo "Setting up pyenv..."
@@ -53,7 +53,7 @@ curl https://pyenv.run | bash
 
 # Copy config dirs
 echo "Linking config dirs..."
-for dir in .config/{Thunar,alacritty,i3,nvim,polybar,rofi,yazi,zsh}; do
+for dir in ./.config/{Thunar,alacritty,i3,nvim,polybar,rofi,yazi,zsh}; do
     # Create a symlinks
     ln -sf "$dir" "$HOME/.config/$dir"
 
@@ -66,7 +66,7 @@ for dir in .config/{Thunar,alacritty,i3,nvim,polybar,rofi,yazi,zsh}; do
 done
 
 # Copy fonts and wallpaper
-for dir in .local/share/{fonts,wallpaper}; do
+for dir in ./.local/share/{fonts,wallpaper}; do
     cp -r "$dir" "$HOME/.local/"
     # Check exit status of copy
     if [[ $? -eq 0 && -d "$HOME/.local/share/$dir" ]]; then
