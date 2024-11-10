@@ -1,0 +1,29 @@
+# Set The Themes
+import =[
+    "~/.config/alacritty/themes/Pnevma.toml",
+]
+
+# Settings
+[window]
+decorations = "None"
+
+[window.dimensions]
+columns = 140
+lines = 25
+
+[font]
+size = 12
+
+[font.normal]
+family = "FiraCode Nerd Font"
+style = "Retina"
+
+[cursor.style]
+shape = "Beam"
+blinking = "On"
+
+[keyboard]
+bindings = [
+{ key = "N", mods = "Control|Shift", action = "SpawnNewInstance" },
+]
+

@@ -1,0 +1,40 @@
+# i3 config
+# Appearence Settings
+
+# Font
+font FiraCode Nerd Font 12
+
+# Config default borders
+#default_border normal 5
+new_window none
+new_float none
+
+# Hide borders
+hide_edge_borders none
+
+# Focus follows mouse
+focus_follows_mouse no
+
+# Enable Smart Borders
+#smart_borders on
+
+## Colors
+set $bg-color               #CCCCCC
+set $inactive-bg-color      #060B15
+set $text-color             #060B15
+set $inactive-text-color    #E6E6E6
+set $urgent-bg-color        #EC0101
+
+## Apply
+#                           borders                 background              text
+client.focused              $bg-color               $bg-color               $text-color
+client.unfocused            $inactive-bg-color      $inactive-bg-color      $inactive-text-color
+client.focused.inactive     $inactive-bg-color      $inactive-bg-color      $inactive-text-color
+client.urgent               $urgent-bg-color        $urgent-bg-color        $text-color
+
+# Gaps
+gaps inner 10
+gaps outer 10
+
+# Top gap so Polybar has space
+gaps top 45

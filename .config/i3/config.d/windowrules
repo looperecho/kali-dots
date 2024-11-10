@@ -1,0 +1,19 @@
+# i3 config
+# Window Rule Settings
+
+# Misc
+for_window [class="LXappearence"] floating enable
+for_window [window_role="About"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+
+# Auto switch to workspace with urgent window
+for_window [urgent=latest] focus
+
+# App Rules
+assign [class="Alacritty"] 1
+for_window [title=".*Firefox"] move to workspace 2
+assign [class="Thunar"] 3

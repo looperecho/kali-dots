@@ -1,0 +1,7 @@
+# i3 Config
+
+# Imports
+include ~/.config/i3/config.d/execs
+include ~/.config/i3/config.d/keybinds
+include ~/.config/i3/config.d/appearence
+include ~/.config/i3/config.d/windowrules

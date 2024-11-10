@@ -1,0 +1,35 @@
+# i3 config
+# Define Mod Keys
+set $hyp Mod4+Shift+Control+Mod1
+set $mod Mod4
+
+# Window - Focus
+bindsym $hyp+a focus left
+bindsym $hyp+s focus down
+bindsym $hyp+w focus up
+bindsym $hyp+d focus right
+
+# Window - Movement
+bindsym $mod+a move left
+bindsym $mod+s move down
+bindsym $mod+w move up
+bindsym $mod+d move right
+
+# Workspaces - Focus
+bindsym $hyp+q workspace prev
+bindsym $hyp+e workspace next
+bindsym $hyp+1 workspace 1
+bindsym $hyp+2 workspace 2
+bindsym $hyp+3 workspace 3
+bindsym $hyp+4 workspace 4
+
+# Workspaces - Move
+bindsym $mod+1 move container to workspace 1
+bindsym $mod+2 move container to workspace 2
+
+# Run
+# Terminal
+bindsym $hyp+Return exec alacritty
+
+# Launcher
+bindsym F12 exec "rofi -show drun -theme ~/.config/rofi/colors/launcher.rasi"
