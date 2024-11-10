@@ -52,17 +52,21 @@ sudo apt install -y \
 curl https://pyenv.run | bash
 
 # Copy config dirs
-# Set dir 
+# Set dir to the directory containing the script
 CURRENT="$(cd "$(dirname "${BASH_SOURCE[0]}")/kali-dots" && pwd)"
+echo "Using source directory: $CURRENT"
 
-# Link configs
+# Link config dirs
 echo "Linking config dirs..."
 for dir in Thunar alacritty i3 nvim polybar rofi yazi zsh; do
-    # Create symlinks
-    ln -sf "$CURRENT/.config/$dir" "$HOME/.config/$dir"
+    SOURCE_PATH="$CURRENT/.config/$dir"
+    TARGET_PATH="$HOME/.config/$dir"
+    
+    echo "Creating symlink: $SOURCE_PATH -> $TARGET_PATH"
+    ln -sf "$SOURCE_PATH" "$TARGET_PATH"
 
     # Check
-    if [[ -L "$HOME/.config/$dir" && -e "$HOME/.config/$dir" ]]; then
+    if [[ -L "$TARGET_PATH" && -e "$TARGET_PATH" ]]; then
         echo "✓ $dir"
     else
         echo "Problem creating symlink for $dir"
@@ -72,9 +76,14 @@ done
 # Link resources
 echo "Linking fonts and wallpaper..."
 for dir in fonts wallpaper; do
-    ln -sf "$CURRENT/.local/share/$dir" "$HOME/.local/share/$dir"
+    SOURCE_PATH="$CURRENT/.local/share/$dir"
+    TARGET_PATH="$HOME/.local/share/$dir"
+    
+    echo "Creating symlink: $SOURCE_PATH -> $TARGET_PATH"
+    ln -sf "$SOURCE_PATH" "$TARGET_PATH"
+
     # Check
-    if [[ -L "$HOME/.local/share/$dir" && -e "$HOME/.local/share/$dir" ]]; then
+    if [[ -L "$TARGET_PATH" && -e "$TARGET_PATH" ]]; then
         echo "✓ $dir"
     else
         echo "Problem creating symlink for $dir"
