@@ -5,13 +5,13 @@
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 
 # Monitor Settings
-exec --no-startup-id xrandr --output Virtual-1 --mode 2560x1600
+exec_always xrandr --output Virtual-1 --mode 2560x1440
 
 # Wallpaper
-exec --no-startup-id ~/.config/i3/scripts.d/wallpaper.sh
+exec_always ~/.config/i3/scripts.d/wallpaper.sh
 
 # Polybar
-exec --no-startup-id ~/.config/i3/scripts.d/polybar_startup.sh
+exec_always ~/.config/i3/scripts.d/polybar_startup.sh
 
 # xfce4-power-manager:
 exec --no-startup-id /usr/bin/xfce4-power-manager
