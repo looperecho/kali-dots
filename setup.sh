@@ -52,8 +52,11 @@ sudo apt install -y \
 curl https://pyenv.run | bash
 
 # Copy config dirs
+# Set dir
+CURRENT=$(pwd)
+# Link configs
 echo "Linking config dirs..."
-for dir in ./.config/{Thunar,alacritty,i3,nvim,polybar,rofi,yazi,zsh}; do
+for dir in "$CURRENT/.config/{Thunar,alacritty,i3,nvim,polybar,rofi,yazi,zsh}"; do
     # Create a symlinks
     ln -sf "$dir" "$HOME/.config/$dir"
 
@@ -65,14 +68,14 @@ for dir in ./.config/{Thunar,alacritty,i3,nvim,polybar,rofi,yazi,zsh}; do
     fi
 done
 
-# Copy fonts and wallpaper
-for dir in ./.local/share/{fonts,wallpaper}; do
+# Link resources
+for dir in "$CURRENT/.local/share/{fonts,wallpaper}"; do
     cp -r "$dir" "$HOME/.local/"
     # Check exit status of copy
     if [[ $? -eq 0 && -d "$HOME/.local/share/$dir" ]]; then
         echo "Done $dir"
     else
-        echo "Problem copying $dir"
+        echo "Problem creating symlink for $dir"
     fi
 done
 
