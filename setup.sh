@@ -52,16 +52,16 @@ sudo apt install -y \
 curl https://pyenv.run | bash
 
 # Copy config dirs
-# Set dir
-CURRENT=$(pwd)
+# Set dir 
+CURRENT="$(cd "$(dirname "${BASH_SOURCE[0]}")/kali-dots" && pwd)"
 # Link configs
 echo "Linking config dirs..."
-for dir in "$CURRENT/.config/{Thunar,alacritty,i3,nvim,polybar,rofi,yazi,zsh}"; do
-    # Create a symlinks
-    ln -sf "$dir" "$HOME/.config/$dir"
+for dir in $CURRENT/.config/{Thunar,alacritty,i3,nvim,polybar,rofi,yazi,zsh}; do
+    # Create symlinks
+    ln -sf "$dir" "$HOME/.config/$(basename "$dir")"
 
     # Check
-    if [[ -L "$HOME/.config/$dir" && -e "$HOME/.config/$dir" ]]; then
+    if [[ -L "$HOME/.config/$(basename "$dir")" && -e "$HOME/.config/$(basename "$dir")" ]]; then
         echo "✓ $dir"
     else
         echo "Problem creating symlink for $dir"
@@ -69,10 +69,10 @@ for dir in "$CURRENT/.config/{Thunar,alacritty,i3,nvim,polybar,rofi,yazi,zsh}"; 
 done
 
 # Link resources
-for dir in "$CURRENT/.local/share/{fonts,wallpaper}"; do
-    cp -r "$dir" "$HOME/.local/"
+for dir in $CURRENT/.local/share/{fonts,wallpaper}; do
+    cp -r "$dir" "$HOME/.local/share/"
     # Check exit status of copy
-    if [[ $? -eq 0 && -d "$HOME/.local/share/$dir" ]]; then
+    if [[ $? -eq 0 && -d "$HOME/.local/share/$(basename "$dir")" ]]; then
         echo "Done $dir"
     else
         echo "Problem creating symlink for $dir"
