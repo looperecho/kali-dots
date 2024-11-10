@@ -13,7 +13,7 @@ fi
 # Update package lists
 echo "Updating repo..."
 sudo apt update
-sudo apt upgrade -y
+#sudo apt upgrade -y
 
 # Install
 echo "Installing packages..."
