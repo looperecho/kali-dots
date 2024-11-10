@@ -51,6 +51,13 @@ sudo apt install -y \
 # Install script
 curl https://pyenv.run | bash
 
+# Setup Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup update
+
+# Install Yazi
+cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
+
 # Copy config dirs
 # Set dir to the directory containing the script
 CURRENT="$(cd "$(dirname "$0")" && pwd)"
