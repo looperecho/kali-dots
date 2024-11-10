@@ -53,7 +53,7 @@ curl https://pyenv.run | bash
 
 # Setup Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-rustup update
+rustup update && exec $SHELL
 
 # Install Yazi
 cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
