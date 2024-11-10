@@ -53,7 +53,7 @@ curl https://pyenv.run | bash
 
 # Copy config dirs
 # Set dir to the directory containing the script
-CURRENT="$(cd "$(dirname "$0")" && pwd)/kali-dots"
+CURRENT="$(cd "$(dirname "$0")" && pwd)"
 echo "Using source directory: $CURRENT"
 
 # Link config dirs
