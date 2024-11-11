@@ -48,15 +48,24 @@ sudo apt install -y \
     liblzma-dev \
     python3-openssl \
     git
-# Install script
-curl https://pyenv.run | bash
+# Check if installed
+if command -v pyenv >/dev/null 2>&1; then
+    echo "pyenv already installed."
+else
+    curl https://pyenv.run | bash
+fi
 
 # Setup Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-rustup update && exec $SHELL
+# Check if installed
+if command -v rustup >/dev/null 2>&1; then
+    echo "Rust already setup"
+else
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    rustup update 
+fi
 
 
-# Copy config dirs
+# Symlink config dirs
 # Set dir to the directory containing the script
 CURRENT="$(cd "$(dirname "$0")" && pwd)"
 echo "Using source directory: $CURRENT"
@@ -74,7 +83,7 @@ for dir in Thunar alacritty i3 nvim polybar rofi yazi zsh; do
     if [[ -L "$TARGET_PATH" && -e "$TARGET_PATH" ]]; then
         echo "✓ $dir"
     else
-        echo "Problem creating symlink for $dir"
+        echo "! Error $dir"
     fi
 done
 
@@ -91,7 +100,7 @@ for dir in fonts wallpaper; do
     if [[ -L "$TARGET_PATH" && -e "$TARGET_PATH" ]]; then
         echo "✓ $dir"
     else
-        echo "Problem creating symlink for $dir"
+        echo "! Error $dir"
     fi
 done
 
