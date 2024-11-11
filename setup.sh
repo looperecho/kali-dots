@@ -78,52 +78,51 @@ setup_rust() {
 }
 
 
-# Symlink config dirs
-# Set dir to the directory containing the script
+# Create symlinks
+create_symlink() {
+    local source="$1"
+    local target="$2"
+
+    ln -sf "$source" "$target"
+    if [[ -L "$target" && -e "$target" ]]; then
+        echo "✓ Linked $target"
+    else
+        echo "! Error linking $target"
+    fi
+}
+
+# Symlink config directories
+link_configs() {
+    CONFIG_DIRS=(Thunar alacritty i3 nvim polybar rofi yazi zsh)
+    for dir in "${CONFIG_DIRS[@]}"; do
+        create_symlink "$CURRENT/.config/$dir" "$HOME/.config/$dir"
+    done
+}
+
+# Symlink fonts and wallpaper
+link_resources() {
+    RESOURCE_DIRS=(fonts wallpaper)
+    for dir in "${RESOURCE_DIRS[@]}"; do
+        create_symlink "$CURRENT/.local/share/$dir" "$HOME/.local/share/$dir"
+    done
+}
+
+# Link zshrc
+link_zshrc() {
+    create_symlink "$HOME/.config/zsh/.zshrc" "$HOME/.zshrc"
+}
+
+# Start setup
 CURRENT="$(cd "$(dirname "$0")" && pwd)"
-echo "Using source directory: $CURRENT"
+setup_pyenv
+setup_rust
+link_configs
+link_resources
+link_zshrc
 
-# Link config dirs
-echo "Linking config dirs..."
-for dir in Thunar alacritty i3 nvim polybar rofi yazi zsh; do
-    SOURCE_PATH="$CURRENT/.config/$dir"
-    TARGET_PATH="$HOME/.config/$dir"
-    
-    echo "Creating symlink: $SOURCE_PATH -> $TARGET_PATH"
-    ln -sf "$SOURCE_PATH" "$TARGET_PATH"
-
-    # Check
-    if [[ -L "$TARGET_PATH" && -e "$TARGET_PATH" ]]; then
-        echo "✓ $dir"
-    else
-        echo "! Error $dir"
-    fi
-done
-
-# Link resources
-echo "Linking fonts and wallpaper..."
-for dir in fonts wallpaper; do
-    SOURCE_PATH="$CURRENT/.local/share/$dir"
-    TARGET_PATH="$HOME/.local/share/$dir"
-    
-    echo "Creating symlink: $SOURCE_PATH -> $TARGET_PATH"
-    ln -sf "$SOURCE_PATH" "$TARGET_PATH"
-
-    # Check
-    if [[ -L "$TARGET_PATH" && -e "$TARGET_PATH" ]]; then
-        echo "✓ $dir"
-    else
-        echo "! Error $dir"
-    fi
-done
-
-# Symlink zshrc
-echo "Creating symlink for .zshrc..."
-ln -sf "$HOME/.config/zsh/.zshrc" "$HOME/.zshrc"
-echo "Symlink created: $HOME/.zshrc -> $HOME/.config/zsh/.zshrc"
-
-# Done
+# Final message
 echo "All Done!"
-echo "To install Yazi, run the following commands..."
+echo "To install Yazi, run the following commands:"
 echo "exec $SHELL"
 echo "cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli"
+
