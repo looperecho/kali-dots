@@ -1,68 +1,81 @@
 #!/bin/bash
 # Install Script
 
-# Start the process 
-read -p "Start install? (Y/n): "
+# Confirm starting process
+read -p "Start install? (Y/n): " confirm
 confirm=${confirm:-y}
 
-if [[ $confirm != [yY] ]]; then
-    echo "You kept quiet..."
+if [[ ! $confirm =~ ^[yY]$ ]]; then
+    echo "Installation aborted."
     exit 1
 fi
 
-# Update package lists
-echo "Updating repo..."
-sudo apt update
-#sudo apt upgrade -y
-
-# Install dots dependencies
-echo "Installing packages..."
-sudo apt install -y \
-    policykit-1-gnome \
-    i3 \
-    polybar \
-    feh \
-    rofi \
-    alacritty \
-    neovim \
-    fzf \
+# Define packages
+BASE_PACKAGES=(
+    policykit-1-gnome
+    i3
+    polybar
+    feh
+    rofi
+    alacritty
+    neovim
+    fzf
     zoxide
+)
+
+PYENV_DEPENDENCIES=(
+    build-essential
+    libssl-dev zlib1g-dev
+    libbz2-dev
+    libreadline-dev
+    libsqlite3-dev
+    wget
+    curl
+    llvm
+    libncurses5-dev
+    libncursesw5-dev
+    xz-utils
+    tk-dev
+    libffi-dev
+    liblzma-dev
+    python3-openssl
+    git
+)
+
+# Function - Install packages
+install_packages() {
+    local packages=("$@")
+    sudo apt install -y "${packages[@]}"
+}
+
+
+# Update package lists and install dependencies
+echo "Updating and installing base packages..."
+sudo apt update && install_packages "${BASE_PACKAGES[@]}"
+
+# Install pyenv dependencies
+echo "Installing pyenv dependencies..."
+install_packages "${PYENV_DEPENDENCIES[@]}"
+
 
 # Setup pyenv
-echo "Setting up pyenv..."
-# Dependencies
-sudo apt install -y \
-    build-essential \
-    libssl-dev zlib1g-dev \
-    libbz2-dev \
-    libreadline-dev \
-    libsqlite3-dev \
-    wget \
-    curl \
-    llvm \
-    libncurses5-dev \
-    libncursesw5-dev \
-    xz-utils \
-    tk-dev \
-    libffi-dev \
-    liblzma-dev \
-    python3-openssl \
-    git
-# Check if installed
-if command -v pyenv >/dev/null 2>&1; then
-    echo "pyenv already installed."
-else
-    curl https://pyenv.run | bash
-fi
+setup_pyenv() {
+    if command -v pyenv >/dev/null 2>&1; then
+        echo "pyenv already installed."
+    else
+        curl https://pyenv.run | bash
+    fi
+}
 
 # Setup Rust
-# Check if installed
-if command -v rustup >/dev/null 2>&1; then
-    echo "Rust already setup"
-else
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    rustup update 
-fi
+setup_rust() {
+    if command -v rustup >/dev/null 2>&1; then
+        echo "Rust is already installed."
+    else
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        rustup update 
+    fi
+}
 
 
 # Symlink config dirs
