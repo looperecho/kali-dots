@@ -15,7 +15,7 @@ echo "Updating repo..."
 sudo apt update
 #sudo apt upgrade -y
 
-# Install
+# Install dots dependencies
 echo "Installing packages..."
 sudo apt install -y \
     policykit-1-gnome \
@@ -55,8 +55,6 @@ curl https://pyenv.run | bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 rustup update && exec $SHELL
 
-# Install Yazi
-cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
 
 # Copy config dirs
 # Set dir to the directory containing the script
@@ -104,3 +102,6 @@ echo "Symlink created: $HOME/.zshrc -> $HOME/.config/zsh/.zshrc"
 
 # Done
 echo "All Done!"
+echo "To install Yazi, run the following commands..."
+echo "exec $SHELL"
+echo "cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli"
