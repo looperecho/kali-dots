@@ -5,7 +5,7 @@
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 
 # Monitor Settings
-exec_always xrandr --output Virtual-1 --mode 2560x1440
+exec_always xrandr --output Virtual-1 --mode 1920x1440
 
 # Wallpaper
 exec_always ~/.config/i3/scripts.d/wallpaper.sh
