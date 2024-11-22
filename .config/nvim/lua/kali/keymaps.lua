@@ -48,13 +48,13 @@ vim.keymap.set('n', '<leader>tc', vim.cmd.ColorizerToggle, {desc="Colorizer"})
 
 -- Macros
 -- Wrap var in print=
-local wrap_in_print = require('recoil.macros.python_wrap_in_print')
+local wrap_in_print = require('kali.macros.python_wrap_in_print')
 vim.keymap.set('n', '<leader>mp',
     function() wrap_in_print.WrapInPrint() end,
     { noremap = true, silent = true, desc = "Wrap in print(f'{var=}') statement" })
 
 -- Insert `if __name__ == '__main__':` at the end of the file with two new lines
-local insert_main_guard = require('recoil.macros.python_if_name_dunder')
+local insert_main_guard = require('kali.macros.python_if_name_dunder')
 vim.keymap.set('n', '<leader>mg',
     function() insert_main_guard.InsertMainGuardAtEnd() end,
     { noremap = true, silent = true, desc = "Insert main guard" })
