@@ -40,6 +40,7 @@ PYENV_DEPENDENCIES=(
     liblzma-dev
     python3-openssl
     git
+    python3-venv
 )
 
 # Function - Install packages
