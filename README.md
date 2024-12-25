@@ -1,10 +1,10 @@
 # kali-dots
-Backup of my for quick setup of a lean Kali box. 
+Backup of configs for a quick setup of a Kali box. 
 
 The `setup.sh` script gets everything installed and links the configs from the repo to get started.
 
 # Quick Links
-## WM, Bar etc.
+## WM, Bar, Launcher, GUI File Browser and Wallpaper engine.
 - [i3](.config/i3)
 - [polybar](.config/polybar)
 - [rofi](.config/rofi)
